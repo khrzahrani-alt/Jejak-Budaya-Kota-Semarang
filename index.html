@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jejak Budaya Semarang: Lintasan Warisan & Tradisi (Gabungan)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Variabel Warna */
+        :root {
+            --color-primary: #004d40; /* Teal/Hijau Tua Khas Pesisir */
+            --color-accent: #ff6f00; /* Oranye Terakota/Bata */
+            --color-text: #333333;
+            --color-background: #f8fcfb;
+            --color-light: #ffffff;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Roboto', sans-serif;
+        }
+
+        /* Reset dan Dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--color-text);
+            background-color: var(--color-background);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--color-accent);
+            font-weight: 500;
+        }
+
+        /* Header */
+        header {
+            background: var(--color-primary);
+            color: var(--color-light);
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+        }
+
+        /* Navigasi */
+        nav {
+            margin-top: 1rem;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        nav a {
+            color: var(--color-light);
+            padding: 0.5rem 1rem;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        nav a:hover {
+            border-color: var(--color-accent);
+        }
+
+        /* Main Content */
+        main {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            text-align: center;
+            color: var(--color-primary);
+            margin-bottom: 3rem;
+        }
+
+        /* === Grid Layouts === */
+        /* Cultural Grid (Tugu Muda, Tari) */
+        .cultural-grid, .tradisi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 4rem; /* Pemisah antar bagian utama */
+        }
+        
+        /* Kuliner Grid */
+        .kuliner-grid, .hotel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 4rem;
+        }
+
+        /* Kartu Budaya/Item */
+        .cultural-card, .kuliner-item, .hotel-card {
+            background: var(--color-light);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            border-top: 4px solid var(--color-accent); /* Penanda Visual */
+        }
+
+        .cultural-card:hover, .kuliner-item:hover, .hotel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .cultural-card h3 {
+            font-family: var(--font-heading);
+            color: var(--color-accent);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .kuliner-item h3, .hotel-card h3 {
+             font-family: var(--font-heading);
+            color: var(--color-accent);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .cultural-card h3 span {
+            font-size: 1.8rem;
+            margin-right: 10px;
+            line-height: 1;
+        }
+        
+        .kuliner-item strong, .hotel-card strong {
+             color: var(--color-primary);
+        }
+        
+        /* Tambahan untuk Tari/Tradisi */
+        .tradisi-item {
+            border-right: 4px solid var(--color-accent);
+        }
+
+        /* Tombol Detail */
+        .detail-btn {
+            display: inline-block;
+            background: var(--color-primary);
+            color: var(--color-light);
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            transition: background 0.3s;
+            cursor: pointer;
+            border: none;
+            font-family: var(--font-body);
+            font-weight: 500;
+        }
+
+        .detail-btn:hover {
+            background: var(--color-accent);
+        }
+        
+        /* Hotel Links */
+        .hotel-card a {
+            background-color: #004d40;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+        .hotel-card a:hover {
+            background-color: #008f7b;
+        }
+
+        /* Modal CSS */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background-color: var(--color-light);
+            margin: 10% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            position: relative;
+            animation: slideInTop 0.5s;
+        }
+        
+        .modal-content h2 {
+            font-family: var(--font-heading);
+            color: var(--color-primary);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 10px;
+        }
+        
+        .modal-content h4 {
+            color: var(--color-accent);
+            margin-top: 15px;
+        }
+        
+        /* Gambar di dalam Modal/Kuliner Item */
+        .modal-content img, .kuliner-item img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px auto;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: 3px solid var(--color-accent);
+            padding: 5px;
+        }
+        
+        /* Menonaktifkan elemen popup yang duplikat/salah yang ada di kode lama Anda */
+        #popup {
+            display: none !important;
+        }
+
+        /* Tombol Tutup */
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: var(--color-primary);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        /* Animasi */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideInTop { from { top: -300px; opacity: 0 } to { top: 0; opacity: 1 } }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            background: var(--color-primary);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        /* Responsif Sederhana */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            nav ul { flex-direction: column; gap: 5px; }
+            .section-title { font-size: 2rem; }
+            .cultural-grid, .kuliner-grid, .hotel-grid { padding: 0 10px; }
+            .modal-content {
+                width: 95%;
+                margin: 20% auto;
+            }
+        }
+    </style>
+</head>
+<body>
+  
+    <header>
+        <div class="container">
+            <h1>Jejak Budaya Semarang: Lintasan Warisan & Tradisi</h1>
+            <section class="hero">
+                <div class="hero-content">
+                    <p>Kota Pelabuhan Tiga Budaya. Semarang, ibu kota Jawa Tengah, dijuluki "Kota Lumpia" dan merupakan kota yang kaya sejarah, terbentuk dari perdagangan dan kolonialisme. Asal Nama: Berasal dari "Asem Arang" (pohon asam jarang).</p>
+                </div>
+            </section>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <h2 class="section-title">Warisan Abadi Kota Pesisir</h2>
+        
+        <div class="cultural-grid">
+
+            <section id="tugu_muda" class="cultural-card">
+                <h3><span>🏛️</span> Tugu Muda: Monumen Pengorbanan</h3>
+                <button id="tuguMudaDetailBtn" class="detail-btn">Lihat Detail Tugu Muda →</button>
+            </section>
+
+            <section id="dugderan" class="cultural-card">
+                <h3><span>🥁</span> Dugderan: Festival Sambut Ramadan</h3>
+                <button id="dugderanDetailBtn" class="detail-btn">Lihat Detail Dugderan →</button>
+            </section>
+
+            <section id="lawang_sewu" class="cultural-card">
+                <h3><span>🚪</span> Lawang Sewu: Mahakarya Arsitektur</h3>
+                <button id="lawangSewuDetailBtn" class="detail-btn">Lihat Detail Lawang Sewu →</button>
+            </section>
+
+        </div>
+        
+        <h2 class="section-title">Gerak, Musik, dan Simbol Budaya Pesisir</h2>
+        
+        <div class="cultural-grid tradisi-grid"> 
+
+            <section id="Tari_Semarang" class="cultural-card tradisi-item">
+                <h3><span>💃</span> Tari Semarang</h3>
+                <button id="TariSemarangaDetailBtn" class="detail-btn">Lihat Detail Tari Semarang →</button>
+            </section>
+
+            <section id="Tradisi_Sesaji_Rewanda" class="cultural-card tradisi-item">
+                <h3><span>🐒</span> Tradisi Sesaji Rewanda</h3>
+                <button id="TradisiSesajiRewandaDetailBtn" class="detail-btn">Lihat Detail Tradisi Sesaji Rewanda →</button>
+            </section>
+
+            <section id="kesenianKudaLumping" class="cultural-card tradisi-item">
+                <h3><span>🐴</span> Kesenian Kuda Lumping</h3>
+                <button id="KesenianKudaLumpingDetailBtn" class="detail-btn">Lihat Detail Kesenian Kuda Lumping →</button>
+            </section>
+        
+        </div>
+        
+        <h2 class="section-title">Lima Pilar Wajib Coba Semarang</h2>
+        
+        <div class="kuliner-grid">
+
+            <div class="kuliner-item">
+                <h3>Lumpia Semarang</h3>
+                
+                <img src="lumpia.jpg" alt="Lumpia Semarang" class="popup-img">
+                <p><strong>Akulturasi Kuliner.</strong> Lumpia adalah hidangan ikonik yang menunjukkan perpaduan budaya Tionghoa dan Jawa. Berisi rebung, daging ayam/udang, dan dibungkus kulit tipis. Tersedia versi basah dan goreng.</p>
+            </div>
+
+            <div class="kuliner-item">
+                <h3>Nasi Ayam Semarang</h3>
+                
+                <img src="nasiayam.jpg" alt="Nasi Ayam Semarang" class="popup-img">
+                <p><strong>Lezat Berkuah Santan.</strong> Mirip dengan Nasi Liwet Solo, namun disajikan dengan suwiran ayam, telur, krecek, dan disiram kuah santan kental yang gurih. Biasanya disajikan di atas pincuk daun pisang.</p>
+            </div>
+
+            <div class="kuliner-item">
+                <h3>Tahu Gimbal</h3>
+                
+                <img src="tahugimbal.jpg" alt="Tahu Gimbal" class="popup-img">
+                <p><strong>Petis Udang yang Khas.</strong> Makanan ini terdiri dari tahu goreng, gimbal (bakwan udang), lontong, dan kol, lalu disiram dengan bumbu kacang yang dicampur dengan **petis udang** yang kental dan manis, memberikan rasa yang unik di lidah.</p>
+            </div>
+
+            <div class="kuliner-item">
+                <h3>Wingko Babat</h3>
+                
+                <img src="wingko.jpg" alt="Wingko Babat" class="popup-img">
+                <p><strong>Oleh-oleh Legendaris.</strong> Kudapan manis berbahan dasar kelapa muda, gula, dan tepung ketan. Meskipun namanya Babat (merujuk pada daerah asalnya), Wingko telah menjadi identitas kuliner dan oleh-oleh wajib dari Semarang.</p>
+            </div>
+            
+            <div class="kuliner-item">
+                <h3>Bandeng Presto</h3>
+                
+                <img src="bandaengpresto.jpg" alt="Bandeng Presto" class="popup-img">
+                <p><strong>Durinya Lunak.</strong> Ikan bandeng yang dimasak dengan cara presto (tekanan tinggi) menggunakan bumbu khas, sehingga durinya menjadi sangat lunak dan dapat dimakan. Sering dijual dalam bentuk kemasan sebagai oleh-oleh.</p>
+            </div>
+
+        </div>
+        
+        <h2 class="section-title">Tempat Menginap Pilihan di Kota Lumpia</h2>
+        
+        <div class="hotel-grid">
+
+            <div class="hotel-card">
+                <h3>Hotel Bintang Lima:</h3>
+                <p><strong>Hotel Tentrem Semarang.</strong> Mewah dan terletak strategis, menawarkan fasilitas lengkap dan desain modern Jawa.</p>
+                <p><strong>Dekat:</strong> Tugu Muda dan Stasiun Poncol.</p>
+                <a href="https://www.google.com/maps?q=Hotel+Tentrem+Semarang" target="_blank">Cek Detail →</a>
+            </div>
+            
+            <div class="hotel-card">
+                <h3>Hotel Sejarah (Kota Lama):</h3>
+                <p><strong>Hotel Dibya Puri.</strong> Salah satu hotel tertua di Semarang, memberikan pengalaman menginap dengan nuansa arsitektur kolonial yang kental.</p>
+                <p><strong>Dekat:</strong> Kawasan Kota Lama dan Gereja Blenduk.</p>
+                <a href="https://www.google.com/maps?q=Hotel+Dibya+Puri+Semarang" target="_blank">Cek Detail →</a>
+            </div>
+
+            <div class="hotel-card">
+                <h3>Hotel Budget Terbaik:</h3>
+                <p><strong>Ibis Budget Semarang Tugu Muda.</strong> Pilihan hemat dengan lokasi super strategis, ideal untuk wisatawan yang fokus pada efisiensi biaya.</p>
+                <p><strong>Dekat:</strong> Tugu Muda dan Lawang Sewu.</p>
+                <a href="https://www.google.com/maps?q=Ibis+Budget+Semarang+Tugu+Muda" target="_blank">Cek Detail →</a>
+            </div>
+
+            <div class="hotel-card">
+                <h3>Pilihan Keluarga & Bisnis:</h3>
+                <p><strong>PO Hotel Semarang.</strong> Menyediakan kamar yang luas dan fasilitas pertemuan yang memadai, cocok untuk liburan keluarga atau perjalanan bisnis.</p>
+                <p><strong>Dekat:</strong> Paragon Mall dan pusat perbelanjaan.</p>
+                <a href="https://www.google.com/maps?q=PO+Hotel+Semarang" target="_blank">Cek Detail →</a>
+            </div>
+
+        </div>
+    </main>
+    
+    <div id="tuguMudaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" data-modal="tuguMudaModal">×</span>
+            <h2>Detail Tugu Muda: Monumen Pengorbanan</h2>
+            
+            <img src="tugumuda2.jpg" alt="Tugu Muda Semarang" class="popup-img">
+            <p>Monumen bersejarah ini didirikan untuk mengenang dan menghormati perjuangan para pemuda yang gugur dalam **Pertempuran Lima Hari di Semarang** pada Oktober 1945.</p>
+            
+            <p>Tugu berbentuk lilin menyala, melambangkan semangat yang tak pernah padam. Lokasinya berada di jantung kota, dikelilingi oleh saksi bisu sejarah seperti Lawang Sewu.</p>
+            
+            <h4>Detail Penting:</h4>
+            <ul>
+                <li>Di dalamnya terdapat lima relief (Perjuangan, Pahlawan, Pengabdian, Korban, Keberanian).</li>
+                <li>Diresmikan oleh Presiden Soekarno pada tanggal 20 Mei 1957.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="dugderanModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" data-modal="dugderanModal">×</span>
+            <h2>Detail Dugderan: Festival Sambut Ramadan</h2>
+            
+            <img src="dugderan4.jpg" alt="Festival Dugderan" class="popup-img">
+            <p>Dugderan adalah festival tradisional khas Semarang yang diselenggarakan menjelang bulan suci Ramadan. Nama "Dugderan" berasal dari bunyi bedug yang ditabuh ("dug") dan bunyi meriam ("der").</p>
+            
+            <p>Festival ini berfungsi sebagai penanda resmi dimulainya puasa dan menampilkan pawai budaya serta pasar malam yang meriah. Ikon utama festival adalah boneka Warak Ngendog, makhluk mitologi yang melambangkan akulturasi budaya lokal.</p>
+            
+            <h4>Detail Penting:</h4>
+            <ul>
+                <li>Pelaksanaan: Beberapa hari sebelum Ramadan.</li>
+                <li>Ikon: Warak Ngendog (binatang rekaan dengan kepala naga, tubuh buraq, dan kaki kambing/gajah).</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="lawangSewuModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" data-modal="lawangSewuModal">×</span>
+            <h2>Detail Lawang Sewu: Mahakarya Arsitektur</h2>
+            
+            <img src="lawangsewu.jpg" alt="Lawang Sewu" class="popup-img">
+            <p>Lawang Sewu (Seribu Pintu) adalah bekas kantor pusat perusahaan kereta api Hindia Belanda (NIS). Meskipun namanya berarti seribu pintu, jumlah pintunya tidak tepat seribu, namun memiliki banyak jendela tinggi yang sering disalahartikan sebagai pintu.</p>
+            
+            <p>Bangunan ini merupakan contoh arsitektur Kolonial Belanda yang megah dan bersejarah, terutama dalam Peristiwa Lima Hari di Semarang.</p>
+            
+            <h4>Detail Penting:</h4>
+            <ul>
+                <li>Dibangun pada tahun 1904.</li>
+                <li>Fungsi Awal: Kantor pusat Nederlandsch-Indische Spoorweg Maatschappij (NIS).</li>
+                <li>Arsitek: Prof. Jacob K. Klinkhamer dan B.J. Ouendag.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="tariSemarangModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" data-modal="tariSemarangModal">×</span>
+            <h2>Detail Tari Semarang: Cerminan Pesisir</h2>
+            
+            <img src="tarisemarang.jpg" alt="Foto Tari Semarang" class="popup-img">
+            <p>Tari Semarang adalah representasi artistik dari dinamika dan akulturasi budaya di Kota Semarang, yang merupakan kota pelabuhan multietnis. Gerakannya energik, lincah, dan ceria, mencerminkan semangat masyarakat pesisir yang terbuka dan bersemangat.</p>
+            
+            <p>Tari ini memadukan unsur-unsur Jawa pesisir, Tionghoa, dan Melayu/Arab, menjadikannya tarian yang kaya ekspresi dan visual.</p>
+            
+            <h4>Detail Penting:</h4>
+            <ul>
+                <li>Ciri Khas: Gerakan yang dinamis, perpaduan musik gamelan dengan instrumen modern.</li>
+                <li>Busana: Busana penari biasanya berwarna cerah dengan kain batik khas pesisir yang menampilkan motif flora dan fauna.</li>
+                <li>Fungsi: Sering ditampilkan dalam acara penyambutan tamu penting dan festival budaya.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="tradisiSesajiRewandaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" data-modal="tradisiSesajiRewandaModal">×</span>
+            
+            <h2>Detail Tradisi Sesaji Rewanda</h2>
+            
+            <img src="tradisi2.jpg" alt="Foto Sesaji Rewanda" class="popup-img">
+            
+            <p>Tradisi Sesaji Rewanda (Sesajen Kera) adalah upacara adat di Goa Kreo. Tradisi ini dilakukan sebagai bentuk rasa syukur kepada Tuhan dan untuk menghormati Sunan Kalijaga yang pernah meminta bantuan kawanan kera untuk memindahkan tiang masjid Demak.</p>
+            
+            <p>Inti dari upacara ini adalah arak-arakan sesaji berupa hasil bumi dan makanan yang kemudian diberikan kepada ratusan kera yang menghuni kawasan Goa Kreo.</p>
+            
+            <h4>Detail Penting:</h4>
+            <ul>
+                <li>Lokasi: Goa Kreo, Semarang.</li>
+                <li>Waktu Pelaksanaan: Biasanya pada bulan Syawal (setelah Idulfitri).</li>
+                <li>Makna: Simbol persahabatan antara manusia dan alam, serta rasa syukur.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="kesenianKudaLumpingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" data-modal="kesenianKudaLumpingModal">×</span>
+            
+            <h2>Detail Kesenian Kuda Lumping</h2>
+            
+            <img src="FESTIVAL-KUDA-LUMPING_NUR-CHAMIM-8.webp" alt="Foto Kesenian Kuda Lumping" class="popup-img">
+            
+            <p>Kuda Lumping (Jaran Kepang) adalah tarian tradisional Jawa yang menampilkan sekelompok prajurit berkuda. Kesenian ini sangat populer di kawasan Semarang dan sekitarnya. Tarian ini kental dengan nuansa magis dan ritual, terutama pada sesi "ndadi" (kesurupan).</p>
+            
+            <p>Kesenian ini biasanya diiringi oleh musik gamelan, menghasilkan irama yang dinamis dan memukau penonton.</p>
+            
+            <h4>Detail Penting:</h4>
+            <ul>
+                <li>Properti Utama: Kuda tiruan yang terbuat dari bambu anyaman.</li>
+                <li>Asal Usul: Diduga berasal dari masa penyebaran Islam atau kisah keprajuritan Majapahit.</li>
+                <li>Elemen Magis: Bagian yang paling ditunggu, saat penari menunjukkan kekebalan tubuh.</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>KELOMPOK 4 X-5 SMAN 5 TARUNA BRAWIJAYA © 2025. | KOTA SEMARANG</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Fungsi untuk membuka modal berdasarkan ID
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+
+        // Fungsi untuk menutup modal berdasarkan ID
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+        
+        // --- Setup Event Listener untuk Sejarah/Warisan ---
+        if (document.getElementById("tuguMudaDetailBtn")) {
+            document.getElementById("tuguMudaDetailBtn").onclick = function() {
+                openModal("tuguMudaModal");
+            }
+        }
+
+        if (document.getElementById("dugderanDetailBtn")) {
+            document.getElementById("dugderanDetailBtn").onclick = function() {
+                openModal("dugderanModal");
+            }
+        }
+        
+        if (document.getElementById("lawangSewuDetailBtn")) {
+            document.getElementById("lawangSewuDetailBtn").onclick = function() {
+                openModal("lawangSewuModal");
+            }
+        }
+        
+        // --- Setup Event Listener untuk Tari & Tradisi ---
+        if (document.getElementById("TariSemarangaDetailBtn")) {
+            document.getElementById("TariSemarangaDetailBtn").onclick = function() {
+                openModal("tariSemarangModal");
+            }
+        }
+
+        if (document.getElementById("TradisiSesajiRewandaDetailBtn")) {
+            document.getElementById("TradisiSesajiRewandaDetailBtn").onclick = function() {
+                openModal("tradisiSesajiRewandaModal");
+            }
+        }
+        
+        // Note: ID tombol di kode Anda adalah "KesenianKudaLumping", tapi saya ubah menjadi "KesenianKudaLumpingDetailBtn" agar konsisten.
+        if (document.getElementById("KesenianKudaLumpingDetailBtn")) {
+             document.getElementById("KesenianKudaLumpingDetailBtn").onclick = function() {
+                openModal("kesenianKudaLumpingModal");
+            }
+        }
+        
+        // Setup Event Listener untuk semua tombol tutup (x)
+        var closeButtons = document.getElementsByClassName("close-button");
+        for (var i = 0; i < closeButtons.length; i++) {
+            closeButtons[i].onclick = function() {
+                var modalId = this.getAttribute("data-modal");
+                closeModal(modalId);
+            }
+        }
+        
+        // Ketika pengguna mengklik di luar modal, tutup modal
+        window.onclick = function(event) {
+            // Cek apakah elemen yang diklik memiliki class "modal"
+            if (event.target.classList.contains("modal")) {
+                event.target.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

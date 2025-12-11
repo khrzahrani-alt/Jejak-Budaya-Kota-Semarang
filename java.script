@@ -1,0 +1,48 @@
+// Data detail budaya
+const data = {
+    1: {
+        title: "Tugu Muda",
+        image: "https://i.ibb.co/pW2HmBw/tugu-muda.jpg",
+        description: "Tugu Muda adalah monumen perjuangan rakyat Semarang melawan penjajah pada tahun 1945. Kini menjadi ikon kota Semarang."
+    },
+    2: {
+        title: "Lawang Sewu",
+        image: "https://i.ibb.co/SJZtVQ0/lawang-sewu.jpg",
+        description: "Lawang Sewu adalah bangunan peninggalan Belanda yang terkenal dengan banyak pintu dan jendelanya. Tempat wisata sejarah populer."
+    },
+    3: {
+        title: "Festival Dugderan",
+        image: "https://i.ibb.co/h7Z7khT/dugderan.jpg",
+        description: "Dugderan adalah festival khas Semarang untuk menyambut bulan Ramadan yang diisi arak-arakan serta maskot Warak Ngendog."
+    }
+};
+
+// Tampilkan detail
+function showDetail(id) {
+    document.getElementById("detailTitle").innerText = data[id].title;
+    document.getElementById("detailImage").src = data[id].image;
+    document.getElementById("detailDescription").innerText = data[id].description;
+
+    document.getElementById("detailModal").style.display = "flex";
+}
+
+// Tutup detail
+function closeDetail() {
+    document.getElementById("detailModal").style.display = "none";
+}
+;
+function showDetail(id) {
+    document.getElementById("detailTitle").innerText = data[id].title;
+    document.getElementById("detailImage").src = data[id].image;
+    document.getElementById("detailDescription").innerText = data[id].description;
+
+    document.getElementById("detailModal").style.display = "flex";
+}
+const data = [];
+const detailData = {
+    1: {
+        title: "Tugu Muda",
+        img: "tugumuda1.jpg",
+        desc: "Tugu Muda adalah monumen bersejarah di Semarang, dibangun untuk mengenang Pertempuran Lima Hari pada tahun 1945. Lokasinya dekat Lawang Sewu dan menjadi ikon utama kota."
+    }
+};
